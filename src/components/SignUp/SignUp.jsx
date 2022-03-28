@@ -1,4 +1,4 @@
-import "./SignUp.css";
+import "./../../pages/Registration/Registration.css";
 
 export default function SignUp() {
   return (

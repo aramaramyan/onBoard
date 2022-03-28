@@ -1,11 +1,13 @@
 import Registration from "./pages/Registration/Registration";
-import Navbar from "./components/Navbar/Navbar";
+import Layout from "./layout/Layout";
 
 export default function App() {
   return (
     <div className="App">
       {/*<Registration />*/}
-      <Navbar />
+      <Layout>
+
+      </Layout>
     </div>
   );
 }

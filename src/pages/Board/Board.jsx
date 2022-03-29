@@ -1,3 +1,11 @@
+import Navbar from "../../components/Navbar/Navbar";
+import "./Board.css";
+
 export default function Board() {
-  return <h1>Single Board</h1>;
+  return (
+    <div className="board_wrapper">
+      <Navbar />
+      <h1>Single Board Page</h1>
+    </div>
+  );
 }

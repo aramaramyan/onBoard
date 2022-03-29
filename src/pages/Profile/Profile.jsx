@@ -1,3 +1,11 @@
+import Navbar from "../../components/Navbar/Navbar";
+import "./Profile.css";
+
 export default function Profile() {
-  return <h1>Profile</h1>;
+  return (
+    <div className="profile_wrapper">
+      <Navbar />
+      <h1>Profile Page</h1>
+    </div>
+  );
 }

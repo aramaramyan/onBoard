@@ -3,12 +3,8 @@ import {useRef, useState} from "react";
 import signInEmail from "../../services/signInEmail";
 
 export default function SignIn() {
-  const [state, setState] = useState({
-    email: "",
-    password: ""
-  });
-  const email = useRef({ current: { value: '' } });
-  const password = useRef({ current: { value: '' } });
+  const email = useRef({ current: { value: "" } });
+  const password = useRef({ current: { value: "" } });
   const [uid, setUid] = useState(null)
 
   function handleEmail(val) {
@@ -20,11 +16,6 @@ export default function SignIn() {
   }
 
   function formSubmit() {
-    setState({
-      email: email.current.value,
-      password: password.current.value
-    })
-
     signInEmail({ email: email.current.value, password: password.current.value }).then((res) => {
       setUid(res.user.uid)
     })
@@ -33,7 +24,7 @@ export default function SignIn() {
   console.log(uid)
   return (
     <div className="container_form container_signin">
-      <form  className="form" id="form2" onSubmit={(evt) => {
+      <form  className="form" id="form2" onSubmit={evt => {
         evt.preventDefault();
         formSubmit();
       }}>
@@ -44,7 +35,7 @@ export default function SignIn() {
           type="email"
           placeholder="Email"
           className="input"
-          onChange={(evt) => handleEmail(evt.target.value)}
+          onChange={evt => handleEmail(evt.target.value)}
         />
         <input
           ref={password}
@@ -52,7 +43,7 @@ export default function SignIn() {
           type="password"
           placeholder="Password"
           className="input"
-          onChange={(evt) => handelPassword(evt.target.value)}
+          onChange={evt => handelPassword(evt.target.value)}
         />
         <a href="#" className="link">Forgot your password?</a>
         <button className="btn" >Sign In</button>

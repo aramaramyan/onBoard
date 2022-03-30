@@ -12,7 +12,7 @@ export default function Navbar() {
   const navigation = useNavigate();
 
   function logOut() {
-    navigation("/login");
+    navigation("/signIn");
   }
 
   return (

@@ -21,13 +21,19 @@ export default function SignUp() {
   }
 
   function formSubmit(e) {
-    e.preventDefault()
-    signUpEmail(email.current.value, password.current.value).then((response) => {
+    e.preventDefault();
 
+    signUpEmail(email.current.value, password.current.value).then((response) => {
       setUserData(response.user.uid, userName.current.value).then((snapshot) => {
         console.log(snapshot)
+      }).catch(err => {
+        alert(err);
       })
     })
+
+    // userName.current.value = "";
+    // email.current.value = "";
+    // password.current.value = "";
   }
 
   return (

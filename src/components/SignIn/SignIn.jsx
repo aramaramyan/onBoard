@@ -1,49 +1,42 @@
-import "./../../pages/Registration/Registration.css";
-import {useRef, useState} from "react";
+import {useRef} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setEmail, setPassword, setUserID } from "../../features/signInSlice";
 import signInEmail from "../../services/signInEmail";
+import "./../../pages/Registration/Registration.css";
 
 export default function SignIn() {
-  const email = useRef({ current: { value: "" } });
-  const password = useRef({ current: { value: "" } });
-  const [uid, setUid] = useState(null)
+  const email = useSelector(state => state.signIn.email);
+  const password = useSelector(state => state.signIn.password);
+  const userID = useSelector(state => state.signIn.userID);
+  const dispatch = useDispatch();
 
-  function handleEmail(val) {
-    email.current.value = val;
+  function formSubmit(evt) {
+    evt.preventDefault();
+
+    signInEmail({ email: email, password: password }).then((res) => {
+      dispatch(setUserID(res.user.uid));
+    });
   }
 
-  function handelPassword(val) {
-    password.current.value = val
-  }
+  console.log(userID);
 
-  function formSubmit() {
-    signInEmail({ email: email.current.value, password: password.current.value }).then((res) => {
-      setUid(res.user.uid)
-    })
-  }
-
-  console.log(uid)
   return (
     <div className="container_form container_signin">
-      <form  className="form" id="form2" onSubmit={evt => {
-        evt.preventDefault();
-        formSubmit();
-      }}>
+      <form  className="form" id="form2" onSubmit={formSubmit}>
         <h2 className="form_title">Sign In</h2>
         <input
-          ref={email}
-          value={email.current.value}
+          value={email}
           type="email"
           placeholder="Email"
           className="input"
-          onChange={evt => handleEmail(evt.target.value)}
+          onChange={evt => dispatch(setEmail(evt.target.value))}
         />
         <input
-          ref={password}
-          value={password.current.value}
+          value={password}
           type="password"
           placeholder="Password"
           className="input"
-          onChange={evt => handelPassword(evt.target.value)}
+          onChange={evt => dispatch(setPassword(evt.target.value))}
         />
         <a href="#" className="link">Forgot your password?</a>
         <button className="btn" >Sign In</button>

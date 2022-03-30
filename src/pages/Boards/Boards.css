@@ -1,5 +1,31 @@
-.boards_wrapper {
+@import url('https://fonts.googleapis.com/css2?family=Allerta&family=Monda&display=swap');
+/*
+font-family: 'Allerta', sans-serif;
+font-family: 'Monda', sans-serif;
+*/
+
+.boards_page_wrapper {
     width: 100%;
     height: calc(100vh - 80px);
     margin-top: 80px;
+    padding: 30px 50px;
+    background: url("./../../img/borads_bg.jpg") center center/cover no-repeat fixed;
+}
+
+.boards_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boards_content > h1 {
+    font-family: 'Allerta', sans-serif;
+}
+
+.boards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px;
 }

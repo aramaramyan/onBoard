@@ -3,7 +3,7 @@ import "./Home.css";
 
 export default function Home() {
   return (
-    <div className="home_wrapper">
+    <div className="home_page_wrapper">
       <Navbar />
       <h1>Home Page</h1>
     </div>

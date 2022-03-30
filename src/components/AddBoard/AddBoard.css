@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&family=Monda&display=swap');
+
+/*
+font-family: 'Allerta', sans-serif;
+font-family: 'Monda', sans-serif;
+*/
+
+.addBoard_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 230px;
+    height: 140px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    transition: 0.3s;
+}
+
+.addBoard_wrapper:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.addBoard_wrapper > img {
+    width: 36px;
+    height: 36px;
+}
+
+.addBoard_wrapper > p {
+    font-family: 'Allerta', sans-serif;
+    color: #B9C7D3;
+}

@@ -1,5 +1,5 @@
 function getStorage() {
-  localStorage.getItem("userID");
+  return localStorage.getItem("userID");
 }
 
 export default getStorage;

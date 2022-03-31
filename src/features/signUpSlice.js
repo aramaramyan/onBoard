@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {signInSlice} from "./signInSlice";
 import setStorage from "../helpers/setStorage";
 
 const initialState = {

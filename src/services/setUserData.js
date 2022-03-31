@@ -8,7 +8,8 @@ const setUserData = async (userID, fullName) => {
     return await addDoc(collection(db, "users"), {
       fullName,
       userID,
-      boards: []
+      boards: [],
+      favBoards: []
     })
   } catch (err) {
     alert(err.message);

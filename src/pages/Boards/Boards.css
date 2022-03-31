@@ -12,7 +12,8 @@ font-family: 'Monda', sans-serif;
     background: url("./../../img/borads_bg.jpg") center center/cover no-repeat fixed;
 }
 
-.boards_content {
+.boards_content,
+.starred_boards_content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +23,8 @@ font-family: 'Monda', sans-serif;
     font-family: 'Allerta', sans-serif;
 }
 
-.boards {
+.boards,
+.starred_boards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;

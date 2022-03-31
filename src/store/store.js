@@ -7,4 +7,4 @@ export const store = configureStore({
     signIn: signInReducer,
     signUp: signUpReducer,
   }
-})
+});

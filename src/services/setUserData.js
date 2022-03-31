@@ -1,20 +1,17 @@
-import { getDatabase, ref, set } from "firebase/database";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {firebaseApp} from "../constants/firebase.config";
 
-function setUserData(userID, fullName) {
- const db = getDatabase();
-
-  return set(ref(db, `users/${userID}`), {
-    fullName,
-    boards: [
-      {
-        id: 1,
-        title: "JS",
-        description: "PicsArt",
-        bgColor: "rgba( 234, 0, 0, 0.35 )",
-        isStarred: false
-      },
-    ],
-  });
+const setUserData = async (userID, fullName) => {
+  const db = getFirestore(firebaseApp);
+  try {
+    return await addDoc(collection(db, "users"), {
+      fullName,
+      userID,
+      boards: []
+    })
+  } catch (err) {
+    alert(err.message);
+  }
 }
 
 export default setUserData;

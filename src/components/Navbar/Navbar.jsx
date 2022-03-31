@@ -7,12 +7,14 @@ import infoIcon from "./../../icons/info.svg";
 import userIcon from "./../../icons/user.svg";
 import logOutIcon from "./../../icons/logOut.svg";
 import "./Navbar.css";
+import clearStorage from "../../helpers/clearStorage";
 
 export default function Navbar() {
   const navigation = useNavigate();
 
   function logOut() {
     navigation("/login");
+    clearStorage();
   }
 
   return (

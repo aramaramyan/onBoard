@@ -1,8 +1,8 @@
 import signUpEmail from "../../services/signUpEmail";
-import setUserData from "../../services/setUserData";
 import { useSelector, useDispatch } from "react-redux";
 import { setFullName, setEmail, setPassword, setUserID } from "../../features/signUpSlice";
 import "./../../pages/Registration/Registration.css";
+import setUserData from "../../services/setUserData";
 
 export default function SignUp() {
   const fullName = useSelector(state => state.signUp.fullName)
@@ -10,19 +10,13 @@ export default function SignUp() {
   const password = useSelector(state => state.signUp.password);
   const dispatch = useDispatch();
 
-
   function formSubmit(e) {
     e.preventDefault();
 
-    signUpEmail(email, password).then((res) => {
-      setUserData(res.user.uid,fullName).then((snapshot) => {
-        console.log(snapshot);
-      }).catch(err => {
-        alert(err);
-      })
-
-      console.log(res);
-    })
+    signUpEmail(email, password).then(res => {
+      setUserData(res.user.uid, fullName).catch(err => alert(err.message));
+          dispatch(setUserID(res.user.uid));
+    }).catch(err => alert(err.message));
   }
 
   return (

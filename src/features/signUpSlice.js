@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {signInSlice} from "./signInSlice";
+import setStorage from "../helpers/setStorage";
 
 const initialState = {
   fullName: "",
@@ -22,7 +23,11 @@ export const signUpSlice = createSlice({
       state.password = action.payload;
     },
     setUserID(state, action) {
+      setStorage(action.payload);
       state.userID = action.payload;
+      state.fullName = "";
+      state.email = "";
+      state.password = ""
     }
   }
 });

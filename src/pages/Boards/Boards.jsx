@@ -3,6 +3,7 @@ import "./Boards.css";
 import {useState, useEffect} from "react";
 import Board from "../../components/Board/Board";
 import AddBoard from "../../components/AddBoard/AddBoard";
+import {Link} from "react-router-dom";
 
 const boards = [
   {
@@ -33,12 +34,12 @@ export default function Boards() {
   const [favoriteBoards, setFavoriteBoards] = useState([])
 
   useEffect(() => {
-    setFavoriteBoards(state.filter(({ isStarred }) => isStarred))
+    setFavoriteBoards(state.filter(({isStarred}) => isStarred))
   }, [state])
 
   function handleStar(id) {
     setState(prevState => prevState.map(item => {
-      if(item.id === id) {
+      if (item.id === id) {
         return {
           ...item,
           isStarred: !item.isStarred
@@ -50,7 +51,7 @@ export default function Boards() {
 
   function changeTitle(newTitle, id) {
     setState(prev => prev.map(item => {
-      if(item.id === id) {
+      if (item.id === id) {
         return {
           ...item,
           title: newTitle
@@ -62,7 +63,7 @@ export default function Boards() {
 
   function changeDesc(newDesc, id) {
     setState(prev => prev.map(item => {
-      if(item.id === id) {
+      if (item.id === id) {
         return {
           ...item,
           description: newDesc
@@ -72,40 +73,40 @@ export default function Boards() {
     }))
   }
 
-  console.log(favoriteBoards)
-
   return (
     <div className="boards_page_wrapper">
       <Navbar/>
       {favoriteBoards.length ? (
-          <div className="starred_boards_content">
-            <h1>Starred Boards</h1>
-            <div className="starred_boards">
-              {favoriteBoards.map(board => {
-                return (
-                  <Board
-                    key={board.id}
-                    board={board}
-                    handleStar={handleStar}
-                    changeTitle={changeTitle}
-                    changeDesc={changeDesc}
-                  />
-                );
-              })}
-            </div>
+        <div className="starred_boards_content">
+          <h1>Starred Boards</h1>
+          <div className="starred_boards">
+            {favoriteBoards.map(board => {
+              return (
+                <Board
+                  key={board.id}
+                  board={board}
+                  handleStar={handleStar}
+                  changeTitle={changeTitle}
+                  changeDesc={changeDesc}
+                />
+              );
+            })}
           </div>
-        ) : null}
+        </div>
+      ) : null}
       <div className="boards_content">
         <h1>Your Boards</h1>
         <div className="boards">
-          {state.map(board => <Board
-            key={board.id}
-            board={board}
-            handleStar={handleStar}
-            changeTitle={changeTitle}
-            changeDesc={changeDesc}
-          />)}
-          <AddBoard />
+          {state.map(board => (
+            <Board
+              key={board.id}
+              board={board}
+              handleStar={handleStar}
+              changeTitle={changeTitle}
+              changeDesc={changeDesc}
+            />
+          ))}
+          <AddBoard/>
         </div>
       </div>
     </div>

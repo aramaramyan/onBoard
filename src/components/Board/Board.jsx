@@ -4,6 +4,7 @@ import starFillIcon from "./../../icons/starFill.svg";
 import starIcon from "./../../icons/star.svg";
 import "./Board.css";
 import {useRef, useState} from "react";
+import {useNavigate} from "react-router";
 
 export default function Board({board, handleStar, changeTitle, changeDesc}) {
   const [titleState, setTitleState] = useState(board.title || "");
@@ -12,6 +13,7 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
   const [isDescReadOnly, setIsDescReadOnly] = useState(true);
   const titleInput = useRef();
   const descInput = useRef();
+  const navigate = useNavigate();
 
   function titleInputHandler(val) {
     setTitleState(val);
@@ -41,9 +43,19 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
     changeDesc(descState, id)
   }
 
+  function goToSingleBoard(title) {
+    navigate(`/boards/${title}`);
+  }
+
 
   return (
-    <div className="board_wrapper" style={{backgroundColor: board.bgColor}}>
+    <div
+      className="board_wrapper"
+      style={{backgroundColor: board.bgColor}}
+      onClick={() => {
+        goToSingleBoard(board.title);
+      }}
+    >
       <div className="board_title_wrapper">
         <input
           ref={titleInput}
@@ -58,12 +70,17 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
               src={editIcon}
               alt="Edit Icon"
               className="board_icon"
-              onClick={titleReadOnlyHandler}/>
+              onClick={(evt) => {
+                evt.stopPropagation();
+                titleReadOnlyHandler();
+              }
+              }/>
             : <img
               src={saveIcon}
               alt="Save Icon"
               className="board_icon"
-              onClick={() => {
+              onClick={(evt) => {
+                evt.stopPropagation();
                 saveTitle(board.id)
               }}/>
         }
@@ -74,6 +91,7 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
           cols="23"
           rows="4"
           ref={descInput}
+          value={descState}
           readOnly={isDescReadOnly}
           onChange={evt => descInputHandler(evt.target.value)}>
           {descState}
@@ -85,19 +103,37 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
                 src={editIcon}
                 alt="Edit Icon"
                 className="board_icon"
-                onClick={descReadOnlyHandler}/>
+                onClick={(evt) => {
+                  evt.stopPropagation();
+                  descReadOnlyHandler()
+                }
+                }/>
               : <img
                 src={saveIcon}
                 alt="Save Icon"
                 className="board_icon"
-                onClick={() => {
+                onClick={(evt) => {
+                  evt.stopPropagation();
                   saveDesc(board.id)
                 }}/>
           }
           {
             board.isStarred ?
-              <img src={starFillIcon} alt="Star Fill" className="board_icon" onClick={() => handleStar(board.id)}/>
-              : <img src={starIcon} alt="Star" className="board_icon" onClick={() => handleStar(board.id)}/>
+              <img
+                src={starFillIcon}
+                alt="Star Fill"
+                className="board_icon" onClick={(evt) => {
+                  evt.stopPropagation();
+                  handleStar(board.id);
+              }}/>
+              : <img
+                src={starIcon}
+                alt="Star"
+                className="board_icon"
+                onClick={(evt) => {
+                  evt.stopPropagation();
+                  handleStar(board.id);
+                }}/>
           }
         </div>
       </div>

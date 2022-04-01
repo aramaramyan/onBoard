@@ -9,7 +9,7 @@ const getUsersDta = async (id) => {
 
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
-    data.push(doc.data());
+    data.push({...doc.data(), id: doc.id});
   });
 
   const [user] = data.filter(user => user.userID === id);

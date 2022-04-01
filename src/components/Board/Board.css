@@ -55,13 +55,17 @@ font-family: 'Monda', sans-serif;
 
 }
 
-.board_description_wrapper > textarea{
+.board_description_wrapper > textarea {
     background: transparent;
     border: none;
     outline: none;
     padding-left: 5px;
     resize: none;
     color: #ffffff;
+}
+
+.board_description_wrapper > textarea:hover {
+    cursor: pointer;
 }
 
 .description_title {

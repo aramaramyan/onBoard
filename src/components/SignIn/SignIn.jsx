@@ -2,12 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { setEmail, setPassword, setUserID } from "../../features/signInSlice";
 import signInEmail from "../../services/signInEmail";
 import "./../../pages/Registration/Registration.css";
+import {useNavigate} from "react-router";
 
 export default function SignIn() {
   const email = useSelector(state => state.signIn.email);
   const password = useSelector(state => state.signIn.password);
   const userID = useSelector(state => state.signIn.userID);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   function formSubmit(evt) {
     evt.preventDefault();
@@ -15,6 +18,8 @@ export default function SignIn() {
     signInEmail({ email: email, password: password }).then((res) => {
       dispatch(setUserID(res.user.uid));
     });
+
+    navigate("/");
   }
 
   console.log(userID);

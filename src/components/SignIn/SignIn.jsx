@@ -17,9 +17,8 @@ export default function SignIn() {
 
     signInEmail({ email: email, password: password }).then((res) => {
       dispatch(setUserID(res.user.uid));
+      navigate("/");
     });
-
-    navigate("/");
   }
 
   console.log(userID);

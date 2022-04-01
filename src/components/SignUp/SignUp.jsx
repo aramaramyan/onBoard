@@ -1,6 +1,6 @@
 import signUpEmail from "../../services/signUpEmail";
-import { useSelector, useDispatch } from "react-redux";
-import { setFullName, setEmail, setPassword, setUserID } from "../../features/signUpSlice";
+import {useSelector, useDispatch} from "react-redux";
+import {setFullName, setEmail, setPassword, setUserID} from "../../features/signUpSlice";
 import "./../../pages/Registration/Registration.css";
 import setUserData from "../../services/setUserData";
 import {useNavigate} from "react-router";
@@ -16,16 +16,15 @@ export default function SignUp() {
 
     signUpEmail(email, password).then(res => {
       setUserData(res.user.uid, fullName).catch(err => alert(err.message));
-          dispatch(setUserID(res.user.uid));
-          dispatch(setState({userID: userID, fullName: fullName}))
+      dispatch(setUserID(res.user.uid));
+      dispatch(setState({userID: userID, fullName: fullName}));
+      navigate("/");
     }).catch(err => alert(err.message));
-
-    navigate("/");
   }
 
   return (
     <div className="container_form container_signup">
-      <form className="form" id="form1" onSubmit={formSubmit} >
+      <form className="form" id="form1" onSubmit={formSubmit}>
         <h2 className="form_title">Sign Up</h2>
         <input
           type="text"

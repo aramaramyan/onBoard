@@ -1,10 +1,8 @@
-import { Outlet } from "react-router"
+import {Navigate} from "react-router"
 import getStorage from "../../helpers/getStorage";
-import Registration from "../../pages/Registration/Registration";
 
-export default function PrivateRoute() {
+export default function PrivateRoute({ children }) {
   const isAuth = !!getStorage();
 
-  return isAuth? <Outlet /> : <Registration />
-
+  return isAuth? children : <Navigate replace to="/login" />;
 }

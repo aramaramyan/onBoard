@@ -4,79 +4,59 @@ import {useState, useEffect} from "react";
 import Board from "../../components/Board/Board";
 import AddBoard from "../../components/AddBoard/AddBoard";
 import {AddBoardModal} from "../../components/AddBoardModal/AddBoardModal";
+import {useSelector} from "react-redux";
 
-const boards = [
-  {
-    id: 1,
-    title: "JS",
-    description: "PicsArt",
-    bgColor: "rgba( 234, 0, 0, 0.35 )",
-    isStarred: false
-  },
-  {
-    id: 2,
-    title: "HTML",
-    description: "PicsArt",
-    bgColor: "rgba( 0, 109, 9, 0.35 )",
-    isStarred: false
-  },
-  {
-    id: 3,
-    title: "CSS",
-    description: "PicsArt",
-    bgColor: "rgba( 54, 55, 218, 0.35 )",
-    isStarred: false
-  },
-];
 
 export default function Boards() {
-  const [state, setState] = useState(boards);
+  const boards = useSelector(state => state.user.boards);
   const [favoriteBoards, setFavoriteBoards] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    setFavoriteBoards(state.filter(({isStarred}) => isStarred))
-  }, [state])
+  // useEffect(() => {
+  //   setFavoriteBoards(state.filter(({isStarred}) => isStarred))
+  // }, [state])
 
-  function handleStar(id) {
-    setState(prevState => prevState.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          isStarred: !item.isStarred
-        }
-      }
-      return item;
-    }))
-  }
-
-  function changeTitle(newTitle, id) {
-    setState(prev => prev.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          title: newTitle
-        }
-      }
-      return item;
-    }))
-  }
-
-  function changeDesc(newDesc, id) {
-    setState(prev => prev.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          description: newDesc
-        }
-      }
-      return item;
-    }))
-  }
+  // function handleStar(id) {
+  //   setState(prevState => prevState.map(item => {
+  //     if (item.id === id) {
+  //       return {
+  //         ...item,
+  //         isStarred: !item.isStarred
+  //       }
+  //     }
+  //     return item;
+  //   }))
+  // }
+  //
+  // function changeTitle(newTitle, id) {
+  //   setState(prev => prev.map(item => {
+  //     if (item.id === id) {
+  //       return {
+  //         ...item,
+  //         title: newTitle
+  //       }
+  //     }
+  //     return item;
+  //   }))
+  // }
+  //
+  // function changeDesc(newDesc, id) {
+  //   setState(prev => prev.map(item => {
+  //     if (item.id === id) {
+  //       return {
+  //         ...item,
+  //         description: newDesc
+  //       }
+  //     }
+  //     return item;
+  //   }))
+  // }
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
   }
+
+  console.log(boards);
 
   return (
     <>
@@ -91,9 +71,9 @@ export default function Boards() {
                   <Board
                     key={board.id}
                     board={board}
-                    handleStar={handleStar}
-                    changeTitle={changeTitle}
-                    changeDesc={changeDesc}
+                    // handleStar={handleStar}
+                    // changeTitle={changeTitle}
+                    // changeDesc={changeDesc}
                   />
                 );
               })}
@@ -103,13 +83,13 @@ export default function Boards() {
         <div className="boards_content">
           <h1>Your Boards</h1>
           <div className="boards">
-            {state.map(board => (
+            {boards.map(board => (
               <Board
                 key={board.id}
                 board={board}
-                handleStar={handleStar}
-                changeTitle={changeTitle}
-                changeDesc={changeDesc}
+                // handleStar={handleStar}
+                // changeTitle={changeTitle}
+                // changeDesc={changeDesc}
               />
             ))}
             <AddBoard toggleModal={toggleModal}/>

@@ -43,17 +43,17 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
     changeDesc(descState, id)
   }
 
-  function goToSingleBoard(title) {
-    navigate(`/boards/${title}`);
+  function goToSingleBoard(id) {
+    navigate(`/boards/${id}`);
   }
 
 
   return (
     <div
       className="board_wrapper"
-      style={{backgroundColor: board.bgColor}}
+      style={{background: `url(${board.bg.card})`}}
       onClick={() => {
-        goToSingleBoard(board.title);
+        goToSingleBoard(board.id);
       }}
     >
       <div className="board_title_wrapper">

@@ -67,19 +67,19 @@ h4{
 }
 
 .bg_1 {
-    background: url("./../../img/boards_BG/boardBG_1_mini.jpg");
+    background: url("../../img/boards_BG/miniBG/boardBG_1_mini.jpg");
 }
 
 .bg_2 {
-    background: url("./../../img/boards_BG/boardBG_2_mini.jpg");
+    background: url("../../img/boards_BG/miniBG/boardBG_2_mini.jpg");
 }
 
 .bg_3 {
-    background: url("./../../img/boards_BG/boardBG_3_mini.jpg");
+    background: url("../../img/boards_BG/miniBG/boardBG_3_mini.jpg");
 }
 
 .bg_4 {
-    background: url("./../../img/boards_BG/boardBG_4_mini.jpg");
+    background: url("../../img/boards_BG/miniBG/boardBG_4_mini.jpg");
 }
 
 .addBoardModal_wrapper input {

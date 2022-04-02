@@ -8,7 +8,7 @@ const initialState = {
   fullName: "",
   email: "",
   userID: null,
-  boars: [],
+  boards: [],
   favBoards: []
 }
 
@@ -35,8 +35,8 @@ export const userSlice = createSlice({
       state = action.payload;
     },
     addBoard(state, action) {
-
-    },
+      state.boards.push(action.payload);
+    }
   },
   extraReducers: {
     [getUserData.fulfilled]: () => console.log("fulfilled"),
@@ -45,5 +45,5 @@ export const userSlice = createSlice({
   }
 })
 
-export const { setState } = userSlice.actions;
+export const { setState, addBoard } = userSlice.actions;
 export default userSlice.reducer;

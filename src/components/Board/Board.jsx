@@ -5,8 +5,10 @@ import starIcon from "./../../icons/star.svg";
 import "./Board.css";
 import {useRef, useState} from "react";
 import {useNavigate} from "react-router";
+import {useDispatch} from "react-redux";
+import {handleFavorite, changeTitle, changeDesc} from "../../features/userSlice";
 
-export default function Board({board, handleStar, changeTitle, changeDesc}) {
+export default function Board({board}) {
   const [titleState, setTitleState] = useState(board.title || "");
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
   const [descState, setDescState] = useState(board.description || "");
@@ -14,6 +16,8 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
   const titleInput = useRef();
   const descInput = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   function titleInputHandler(val) {
     setTitleState(val);
@@ -35,12 +39,20 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
 
   function saveTitle(id) {
     titleReadOnlyHandler();
-    changeTitle(titleState, id);
+    const action = {
+      id,
+      title: titleState
+    }
+    dispatch(changeTitle(action))
   }
 
   function saveDesc(id) {
     descReadOnlyHandler();
-    changeDesc(descState, id)
+    const action = {
+      id,
+      description: descState
+    }
+    dispatch(changeDesc(action));
   }
 
   function goToSingleBoard(id) {
@@ -118,13 +130,14 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
                 }}/>
           }
           {
-            board.isStarred ?
+            board.isFavorite ?
               <img
                 src={starFillIcon}
                 alt="Star Fill"
-                className="board_icon" onClick={(evt) => {
+                className="board_icon"
+                onClick={(evt) => {
                   evt.stopPropagation();
-                  handleStar(board.id);
+                  dispatch(handleFavorite(board.id));
               }}/>
               : <img
                 src={starIcon}
@@ -132,7 +145,7 @@ export default function Board({board, handleStar, changeTitle, changeDesc}) {
                 className="board_icon"
                 onClick={(evt) => {
                   evt.stopPropagation();
-                  handleStar(board.id);
+                  dispatch(handleFavorite(board.id));
                 }}/>
           }
         </div>

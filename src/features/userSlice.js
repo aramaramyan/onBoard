@@ -9,7 +9,6 @@ const initialState = {
   email: "",
   userID: null,
   boards: [],
-  favBoards: []
 }
 
 const db = getFirestore(firebaseApp);
@@ -20,8 +19,9 @@ export const getUserData = createAsyncThunk(
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
       if(doc.data().userID === getStorage()) {
-        dispatch(setState({docID: doc.id, ...doc.data()}));
-        console.log({docID: doc.id, ...doc.data()})
+        const state = { docID: doc.id, ...doc.data() };
+        console.log(state);
+        dispatch(setState(state));
       }
     });
   }
@@ -31,12 +31,45 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    setState(state, action) {
+    setState (state, action) {
       state = action.payload;
     },
     addBoard(state, action) {
       state.boards.push(action.payload);
-    }
+    },
+    handleFavorite(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload) {
+          return {
+            ...board,
+            isFavorite: !board.isFavorite
+          }
+        }
+        return board
+      })
+    },
+    changeTitle(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.id) {
+          return {
+            ...board,
+            title: action.payload.title
+          }
+        }
+        return board;
+      });
+    },
+    changeDesc(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.id) {
+          return {
+            ...board,
+            description: action.payload.description
+          }
+        }
+        return board;
+      });
+    },
   },
   extraReducers: {
     [getUserData.fulfilled]: () => console.log("fulfilled"),
@@ -45,5 +78,11 @@ export const userSlice = createSlice({
   }
 })
 
-export const { setState, addBoard } = userSlice.actions;
+export const {
+  setState,
+  addBoard,
+  handleFavorite,
+  changeTitle,
+  changeDesc
+} = userSlice.actions;
 export default userSlice.reducer;

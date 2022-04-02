@@ -5,8 +5,8 @@ import getStorage from "../helpers/getStorage";
 
 const initialState = {
   docID: null,
-  fullName: "",
-  email: "",
+  fullName: "Aram Aramyan",
+  email: "aram@mail.ru",
   userID: null,
   boards: [],
 }
@@ -70,6 +70,9 @@ export const userSlice = createSlice({
         return board;
       });
     },
+    deleteBoard(state, action) {
+      state.boards = state.boards.filter(board => board.id !== action.payload);
+    }
   },
   extraReducers: {
     [getUserData.fulfilled]: () => console.log("fulfilled"),
@@ -83,6 +86,7 @@ export const {
   addBoard,
   handleFavorite,
   changeTitle,
-  changeDesc
+  changeDesc,
+  deleteBoard
 } = userSlice.actions;
 export default userSlice.reducer;

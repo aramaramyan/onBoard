@@ -1,0 +1,18 @@
+.asideBoard_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    color: #ffffff;
+    transition: 0.3s;
+}
+.asideBoard_wrapper:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.38);
+}
+
+.asideBoard_star {
+    width: 16px;
+}

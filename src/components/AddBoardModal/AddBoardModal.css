@@ -33,8 +33,8 @@
     border-radius: 20px;
 }
 
-h3,
-h4{
+.addBoardModal_wrapper h3,
+.addBoardModal_wrapper h4{
     margin-left: 20px;
 }
 

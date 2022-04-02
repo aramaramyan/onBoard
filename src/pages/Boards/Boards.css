@@ -13,7 +13,7 @@ font-family: 'Monda', sans-serif;
 }
 
 .boards_content,
-.starred_boards_content {
+.favoriteBoards_content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@ font-family: 'Monda', sans-serif;
 }
 
 .boards,
-.starred_boards {
+.favoriteBoards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;

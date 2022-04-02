@@ -23,9 +23,9 @@ export default function Boards() {
       <div className="boards_page_wrapper">
         <Navbar/>
         {favoriteBoards.length ? (
-          <div className="starred_boards_content">
-            <h1>Starred Boards</h1>
-            <div className="starred_boards">
+          <div className="favoriteBoards_content">
+            <h1>Favorite Boards</h1>
+            <div className="favoriteBoards">
               {favoriteBoards.map(board => {
                 return (
                   <Board

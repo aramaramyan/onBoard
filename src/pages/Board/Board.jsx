@@ -9,6 +9,7 @@ import trashIcon from "./../../icons/trash.svg";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Board.css";
 import AsideBoard from "../../components/AsideBoard/AsideBoard";
+import AddList from "../../components/AddList/AddList";
 
 export default function Board() {
   const {fullName, boards} = useSelector(state => state.user)
@@ -70,6 +71,9 @@ export default function Board() {
             <h5>DELETE BOARD</h5>
             <img src={trashIcon} alt="Trash Icon" className="delete_board_icon"/>
           </div>
+        </div>
+        <div className="lists">
+          <AddList />
         </div>
       </div>
     </div>

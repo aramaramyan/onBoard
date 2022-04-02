@@ -1,0 +1,15 @@
+.addList_wrapper {
+    width: 300px;
+    height: 30px;
+    background-color: #6c9eda;
+}
+
+.addList_wrapper p{
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.close_icon {
+    width: 24px;
+    height: 24px;
+}

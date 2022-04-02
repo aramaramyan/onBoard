@@ -9,11 +9,10 @@ const getUsersDta = async (id) => {
 
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
-    data.push({...doc.data(), id: doc.id});
+    data.push({docID: doc.id, ...doc.data()});
   });
 
-  const [user] = data.filter(user => user.userID === id);
-  return user;
+  console.log(data.filter(user => user.userID === id));
 }
 
 export default getUsersDta;

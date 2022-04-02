@@ -15,7 +15,7 @@ export default function SignUp() {
     e.preventDefault();
 
     signUpEmail(email, password).then(res => {
-      setUserData(res.user.uid, fullName).catch(err => alert(err.message));
+      setUserData(res.user.uid, fullName, email).catch(err => alert(err.message));
       dispatch(setUserID(res.user.uid));
       dispatch(setState({userID: userID, fullName: fullName}));
       navigate("/");

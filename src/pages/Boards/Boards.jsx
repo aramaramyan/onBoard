@@ -3,7 +3,7 @@ import "./Boards.css";
 import {useState, useEffect} from "react";
 import Board from "../../components/Board/Board";
 import AddBoard from "../../components/AddBoard/AddBoard";
-import {Link} from "react-router-dom";
+import {AddBoardModal} from "../../components/AddBoardModal/AddBoardModal";
 
 const boards = [
   {
@@ -31,7 +31,8 @@ const boards = [
 
 export default function Boards() {
   const [state, setState] = useState(boards);
-  const [favoriteBoards, setFavoriteBoards] = useState([])
+  const [favoriteBoards, setFavoriteBoards] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setFavoriteBoards(state.filter(({isStarred}) => isStarred))
@@ -73,42 +74,49 @@ export default function Boards() {
     }))
   }
 
+  function toggleModal() {
+    setIsModalOpen(!isModalOpen);
+  }
+
   return (
-    <div className="boards_page_wrapper">
-      <Navbar/>
-      {favoriteBoards.length ? (
-        <div className="starred_boards_content">
-          <h1>Starred Boards</h1>
-          <div className="starred_boards">
-            {favoriteBoards.map(board => {
-              return (
-                <Board
-                  key={board.id}
-                  board={board}
-                  handleStar={handleStar}
-                  changeTitle={changeTitle}
-                  changeDesc={changeDesc}
-                />
-              );
-            })}
+    <>
+      <div className="boards_page_wrapper">
+        <Navbar/>
+        {favoriteBoards.length ? (
+          <div className="starred_boards_content">
+            <h1>Starred Boards</h1>
+            <div className="starred_boards">
+              {favoriteBoards.map(board => {
+                return (
+                  <Board
+                    key={board.id}
+                    board={board}
+                    handleStar={handleStar}
+                    changeTitle={changeTitle}
+                    changeDesc={changeDesc}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+        <div className="boards_content">
+          <h1>Your Boards</h1>
+          <div className="boards">
+            {state.map(board => (
+              <Board
+                key={board.id}
+                board={board}
+                handleStar={handleStar}
+                changeTitle={changeTitle}
+                changeDesc={changeDesc}
+              />
+            ))}
+            <AddBoard toggleModal={toggleModal}/>
           </div>
         </div>
-      ) : null}
-      <div className="boards_content">
-        <h1>Your Boards</h1>
-        <div className="boards">
-          {state.map(board => (
-            <Board
-              key={board.id}
-              board={board}
-              handleStar={handleStar}
-              changeTitle={changeTitle}
-              changeDesc={changeDesc}
-            />
-          ))}
-          <AddBoard/>
-        </div>
       </div>
-    </div>
+      {isModalOpen && <AddBoardModal toggleModal={toggleModal}/>}
+    </>
   );
 }

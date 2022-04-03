@@ -6,12 +6,12 @@ import "./Board.css";
 import {useRef, useState} from "react";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
-import {handleFavorite, changeTitle, changeDesc} from "../../features/userSlice";
+import {handleFavorite, changeBoardTitle, changeBoardDesc} from "../../features/userSlice";
 
 export default function Board({board}) {
-  const [titleState, setTitleState] = useState(board.title || "");
+  const [titleState, setTitleState] = useState(board.title);
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
-  const [descState, setDescState] = useState(board.description || "");
+  const [descState, setDescState] = useState(board.description);
   const [isDescReadOnly, setIsDescReadOnly] = useState(true);
   const titleInput = useRef();
   const descInput = useRef();
@@ -43,7 +43,7 @@ export default function Board({board}) {
       id,
       title: titleState
     }
-    dispatch(changeTitle(action))
+    dispatch(changeBoardTitle(action))
   }
 
   function saveDesc(id) {
@@ -52,7 +52,7 @@ export default function Board({board}) {
       id,
       description: descState
     }
-    dispatch(changeDesc(action));
+    dispatch(changeBoardDesc(action));
   }
 
   function goToSingleBoard(id) {

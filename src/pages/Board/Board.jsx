@@ -12,6 +12,7 @@ import "./Board.css";
 import AsideBoard from "../../components/AsideBoard/AsideBoard";
 import AddList from "../../components/AddList/AddList";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import List from "../../components/List/List";
 
 export default function Board() {
   const {fullName, boards} = useSelector(state => state.user);
@@ -81,7 +82,8 @@ export default function Board() {
             </div>
           </div>
           <div className="lists">
-            <AddList/>
+            {board.lists.map(list => <List key={list.id} list={list} boardID={boardID}/>)}
+            <AddList boardID={board.id}/>
           </div>
         </div>
       </div>

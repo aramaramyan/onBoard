@@ -48,7 +48,7 @@ export const userSlice = createSlice({
         return board
       })
     },
-    changeTitle(state, action) {
+    changeBoardTitle(state, action) {
       state.boards = state.boards.map(board => {
         if(board.id === action.payload.id) {
           return {
@@ -59,7 +59,7 @@ export const userSlice = createSlice({
         return board;
       });
     },
-    changeDesc(state, action) {
+    changeBoardDesc(state, action) {
       state.boards = state.boards.map(board => {
         if(board.id === action.payload.id) {
           return {
@@ -72,6 +72,40 @@ export const userSlice = createSlice({
     },
     deleteBoard(state, action) {
       state.boards = state.boards.filter(board => board.id !== action.payload);
+    },
+    addList(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+          return {
+            ...board,
+            lists: [
+              ...board.lists,
+              {
+                id: action.payload.id,
+                title: action.payload.title,
+                cards: []
+              }
+            ]
+          }
+        }
+        return board;
+      });
+    },
+    changeListTitle(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+           board.lists = board.lists.map(list => {
+            if(list.id === action.payload.id) {
+              return {
+                ...list,
+                title: action.payload.title
+              }
+            }
+            return list;
+          });
+        }
+        return board
+      });
     }
   },
   extraReducers: {
@@ -85,8 +119,10 @@ export const {
   setState,
   addBoard,
   handleFavorite,
-  changeTitle,
-  changeDesc,
-  deleteBoard
+  changeBoardTitle,
+  changeBoardDesc,
+  deleteBoard,
+  addList,
+  changeListTitle
 } = userSlice.actions;
 export default userSlice.reducer;

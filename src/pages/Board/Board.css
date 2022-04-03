@@ -120,7 +120,11 @@ aside:hover {
 /* LISTS STYLES */
 
 .lists {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
     width: 100%;
     height: calc(100% - 50px);
-    padding: 15px 0 0 15px;
+    padding: 15px;
+    overflow: scroll;
 }

@@ -24,7 +24,7 @@ export default function DeleteModal({ id, title,toggleModal }) {
             <img src={dangerIcon} alt="Danger Icon"/>
             <div className="danger_modal_text">
               <p className="danger_modal_firstText">Are you sure you want to delete "{title}" board?</p>
-              <p className="danger_modal_secondText">This board will be deleted immediately.<br/>You can't undo this action</p>
+              <p className="danger_modal_secondText">This board will be deleted immediately.<br/>You can't undo this action.</p>
             </div>
           </div>
           <div className="danger_modal_actions">

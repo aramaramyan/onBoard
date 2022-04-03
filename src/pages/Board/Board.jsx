@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBoard, handleFavorite} from "../../features/userSlice";
@@ -12,11 +13,16 @@ import AsideBoard from "../../components/AsideBoard/AsideBoard";
 import AddList from "../../components/AddList/AddList";
 
 export default function Board() {
-  const {fullName, boards} = useSelector(state => state.user)
+  const {fullName, boards} = useSelector(state => state.user);
+  const [avatarBG, setAvatarBG] = useState("");
   const { boardID } = useParams();
   const [board] =boards.filter(board => board.id === boardID);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setAvatarBG(randomColor());
+  }, []);
 
   function delBoard(id) {
     dispatch(deleteBoard(id));
@@ -28,7 +34,7 @@ export default function Board() {
       <Navbar />
       <aside>
         <div className="user_info">
-          <div className="first_letter" style={{background: randomColor(), color: "#ffffff"}}>
+          <div className="first_letter" style={{background: avatarBG, color: "#ffffff"}}>
             {fullName.slice(0, 1).toUpperCase()}
           </div>
           <div className="user_name">

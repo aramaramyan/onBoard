@@ -1,4 +1,4 @@
-import {changeListTitle} from "../../features/userSlice";
+import {changeListTitle, deleteList} from "../../features/userSlice";
 import {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import trashIcon from "./../../icons/trash.svg";
@@ -29,8 +29,16 @@ export default function List({ boardID, list }) {
       boardID,
       id,
       title,
-    }
+    };
     dispatch(changeListTitle(action));
+  }
+
+  function delList(boardID, id) {
+    const action = {
+      boardID,
+      id,
+    };
+    dispatch(deleteList(action));
   }
 
   return (
@@ -58,7 +66,12 @@ export default function List({ boardID, list }) {
             onClick={() => {saveTitle(boardID, list.id)}}
           />
         )}
-        <img src={trashIcon} alt="Trash Icon" className="list_header_icon"/>
+        <img
+          src={trashIcon}
+          alt="Trash Icon"
+          className="list_header_icon"
+          onClick={() => delList(boardID, list.id)}
+        />
       </div>
       <div className="cards_wrapper">
         {/*{list.cards.map()}*/}

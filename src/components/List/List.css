@@ -32,6 +32,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 }
 
 .list_footer p {
@@ -43,4 +44,5 @@
 .list_header_icon {
     width: 24px;
     height: 24px;
+    cursor: pointer;
 }

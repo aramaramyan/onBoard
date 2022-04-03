@@ -106,6 +106,17 @@ export const userSlice = createSlice({
         }
         return board
       });
+    },
+    deleteList(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+          return {
+            ...board,
+            lists: board.lists.filter(list => list.id !== action.payload.id)
+          }
+        }
+        return board;
+      });
     }
   },
   extraReducers: {
@@ -123,6 +134,7 @@ export const {
   changeBoardDesc,
   deleteBoard,
   addList,
-  changeListTitle
+  changeListTitle,
+  deleteList
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -82,7 +82,12 @@ export default function Board() {
             </div>
           </div>
           <div className="lists">
-            {board.lists.map(list => <List key={list.id} list={list} boardID={boardID}/>)}
+            {board.lists.map(list => <List
+              key={list.id}
+              list={list}
+              boardID={boardID}
+              isModalOpen={isModalOpen}
+            />)}
             <AddList boardID={board.id}/>
           </div>
         </div>

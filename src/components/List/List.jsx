@@ -7,7 +7,7 @@ import editIcon from "./../../icons/edit.svg";
 import saveIcon from "./../../icons/save.svg";
 import "./List.css";
 
-export default function List({ boardID, list }) {
+export default function List({ boardID, list, isModalOpen }) {
   const [title, setTitle] = useState(list.title);
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
   const titleInput = useRef();
@@ -42,7 +42,7 @@ export default function List({ boardID, list }) {
   }
 
   return (
-    <div className="list_wrapper">
+    <div className={ isModalOpen? "list_wrapper vibrate" : "list_wrapper"}>
       <div className="list_header">
         <input
           ref={titleInput}

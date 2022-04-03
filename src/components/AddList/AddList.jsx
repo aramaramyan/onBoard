@@ -1,6 +1,7 @@
-import "./AddList.css";
-import closeIcon from "./../../icons/close.svg";
 import {useState} from "react";
+import closeIcon from "./../../icons/close.svg";
+import plusIcon from "./../../icons/plus.svg";
+import "./AddList.css";
 
 export default function AddList() {
   const [isAdding, setIsAdding] = useState(false);
@@ -12,7 +13,7 @@ export default function AddList() {
   return (
     isAdding ? (
       <div className="addList_input_wrapper">
-        <input type="text" placeholder="Enter List Title"/>
+        <input type="text" placeholder="Enter List Title..."/>
         <div className="addList_input_wrapper_actions">
           <button>Add List</button>
           <img
@@ -25,6 +26,7 @@ export default function AddList() {
       </div>
     ) : (
       <div className="addList_wrapper" onClick={handleIsAdding}>
+        <img src={plusIcon} alt="Plus Icon" className="plus_icon"/>
         <p>Add List</p>
       </div>
     ));

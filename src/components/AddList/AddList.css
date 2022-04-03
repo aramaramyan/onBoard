@@ -29,8 +29,8 @@
     flex-direction: column;
     justify-content: center;
     height: 100px;
-    -webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-    animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+    -webkit-animation: swing 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+    animation: swing 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }
 
 .addList_input_wrapper input {
@@ -79,7 +79,7 @@
     top:1px;
 }
 
-@-webkit-keyframes swing-in-top-fwd {
+@-webkit-keyframes swing {
     0% {
         -webkit-transform: rotateX(-100deg);
         transform: rotateX(-100deg);
@@ -96,7 +96,7 @@
     }
 }
 
-@keyframes swing-in-top-fwd {
+@keyframes swing {
     0% {
         -webkit-transform: rotateX(-100deg);
         transform: rotateX(-100deg);

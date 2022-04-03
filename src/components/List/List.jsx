@@ -41,8 +41,9 @@ export default function List({ boardID, list, isModalOpen }) {
     dispatch(deleteList(action));
   }
 
+
   return (
-    <div className={ isModalOpen? "list_wrapper vibrate" : "list_wrapper"}>
+    <div className={ isModalOpen? "list_wrapper_shake" : "list_wrapper swing"}>
       <div className="list_header">
         <input
           ref={titleInput}

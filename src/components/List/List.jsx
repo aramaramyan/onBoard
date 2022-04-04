@@ -2,10 +2,10 @@ import {changeListTitle, deleteList} from "../../features/userSlice";
 import {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import trashIcon from "./../../icons/trash.svg";
-import plusIcon from "./../../icons/plus.svg";
 import editIcon from "./../../icons/edit.svg";
 import saveIcon from "./../../icons/save.svg";
 import "./List.css";
+import AddCard from "../AddCard/AddCard";
 
 export default function List({ boardID, list, isModalOpen }) {
   const [title, setTitle] = useState(list.title);
@@ -77,10 +77,7 @@ export default function List({ boardID, list, isModalOpen }) {
       <div className="cards_wrapper">
         {/*{list.cards.map()}*/}
       </div>
-      <div className="list_footer">
-        <img src={plusIcon} alt="Plus Icon" className="plus_icon"/>
-        <p>Add a card</p>
-      </div>
+      <AddCard />
     </div>
   );
 }

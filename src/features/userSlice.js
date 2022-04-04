@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {collection, getDocs, getFirestore, onSnapshot, doc} from "firebase/firestore";
 import {firebaseApp} from "../constants/firebase.config";
 import getStorage from "../helpers/getStorage";
+import {v4} from "uuid";
 
 let initialState = {
   docID: null,
@@ -56,13 +57,25 @@ export const userSlice = createSlice({
       delete state.boards[action.payload];
     },
     addList(state, action) {
-      state.boards[action.payload.boardID].lists[action.payload.id] = action.payload
+      state.boards[action.payload.boardID].lists[action.payload.id] = {
+        id: action.payload.id,
+        title: action.payload.title,
+        cards: {}
+      }
     },
     changeListTitle(state, action) {
       state.boards[action.payload.boardID].lists[action.payload.id].title = action.payload.title;
     },
     deleteList(state, action) {
       delete state.boards[action.payload.boardID].lists[action.payload.id];
+    },
+    addCard(state, action) {
+      state.boards[action.payload.boardID].lists[action.payload.listID].cards[action.payload.id] = {
+        id: action.payload.id,
+        title: action.payload.title,
+        description: "",
+        comments: {}
+      }
     }
   },
 })
@@ -76,6 +89,7 @@ export const {
   deleteBoard,
   addList,
   changeListTitle,
-  deleteList
+  deleteList,
+  addCard
 } = userSlice.actions;
 export default userSlice.reducer;

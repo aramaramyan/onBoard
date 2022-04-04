@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {addList} from "../../features/userSlice";
-import closeIcon from "./../../icons/close.svg";
+import closeIcon from "./../../icons/close_white.svg";
 import plusWhiteIcon from "./../../icons/plus_white.svg";
 import "./AddList.css";
 import {v4} from "uuid";
@@ -24,6 +24,7 @@ export default function AddList({ boardID }) {
       boardID,
       id: v4().slice(0, 8),
       title,
+      cards: {}
     };
     dispatch(addList(action));
     setTitle("");

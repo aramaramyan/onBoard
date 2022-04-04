@@ -77,7 +77,7 @@ export default function List({ boardID, list, isModalOpen }) {
       <div className="cards_wrapper">
         {/*{list.cards.map()}*/}
       </div>
-      <AddCard />
+      <AddCard boardID={boardID} listID={list.id}/>
     </div>
   );
 }

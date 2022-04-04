@@ -6,7 +6,7 @@ import plusIcon from "../../icons/plus.svg";
 import closeIcon from "../../icons/close.svg";
 import "./AddCard.css";
 
-export default function AddCard(boardID, listID) {
+export default function AddCard({boardID, listID}) {
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState("")
   const textarea = useRef();
@@ -35,14 +35,14 @@ export default function AddCard(boardID, listID) {
   return isAdding ? (
         <div className="addCard_textarea_wrapper">
           <textarea
-            cols="23"
+            cols="22"
             rows="4"
             ref={textarea}
             value={title}
             onChange={evt => textareaHandler(evt.target.value)}
           />
           <div className="addCard_textarea_wrapper_actions">
-            <button onClick={() => addCardToList(boardID, title)}>Add Card</button>
+            <button onClick={() => addCardToList(boardID, listID, title)}>Add Card</button>
             <img
               src={closeIcon}
               alt="Close Icon"

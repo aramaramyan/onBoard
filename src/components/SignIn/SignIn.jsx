@@ -21,8 +21,6 @@ export default function SignIn() {
     });
   }
 
-  console.log(userID);
-
   return (
     <div className="container_form container_signin">
       <form  className="form" id="form2" onSubmit={formSubmit}>

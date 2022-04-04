@@ -9,8 +9,17 @@ import { useSelector} from "react-redux";
 
 export default function Boards() {
   const boards = useSelector(state => state.user.boards);
-  const favoriteBoards = boards.filter(board => board.isFavorite);
+  const boardsArray = [];
+  const favoriteBoards = [];
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  for (let key in boards) {
+    boardsArray.push(boards[key])
+
+    if(boards[key].isFavorite) {
+      favoriteBoards.push(boards[key]);
+    }
+  }
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
@@ -40,7 +49,7 @@ export default function Boards() {
         <div className="boards_content">
           <h1>Your Boards</h1>
           <div className="boards">
-            {boards.map(board => (
+            {boardsArray.map(board => (
               <Board
                 key={board.id}
                 board={board}

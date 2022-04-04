@@ -1,31 +1,28 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {collection, getDocs, getFirestore} from "firebase/firestore";
+import { createSlice } from "@reduxjs/toolkit";
+import {collection, getDocs, getFirestore, onSnapshot, doc} from "firebase/firestore";
 import {firebaseApp} from "../constants/firebase.config";
 import getStorage from "../helpers/getStorage";
 
-const initialState = {
+let initialState = {
   docID: null,
   fullName: "Aram Aramyan",
   email: "aram@mail.ru",
   userID: null,
-  boards: [],
+  boards: {},
 }
 
 const db = getFirestore(firebaseApp);
 
-export const getUserData = createAsyncThunk(
-  "userData/getUserData",
-  async (payload, {rejectWithValue,  dispatch}) => {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      if(doc.data().userID === getStorage()) {
-        const state = { docID: doc.id, ...doc.data() };
-        console.log(state);
-        dispatch(setState(state));
-      }
-    });
-  }
-);
+
+export async function getUserData(userID) {
+  const querySnapshot = await getDocs(collection(db, `users`));
+  querySnapshot.forEach((doc) => {
+    if(doc.data().userID === userID) {
+      console.log(doc.data());
+    }
+  });
+}
+
 
 export const userSlice = createSlice({
   name: "userData",
@@ -35,95 +32,39 @@ export const userSlice = createSlice({
       state = action.payload;
     },
     addBoard(state, action) {
-      state.boards.push(action.payload);
+      state.boards[action.payload.id] = action.payload;
     },
     handleFavorite(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload) {
-          return {
-            ...board,
-            isFavorite: !board.isFavorite
-          }
-        }
-        return board
-      })
+      state.boards[action.payload] = {
+        ...state.boards[action.payload],
+        isFavorite: !state.boards[action.payload].isFavorite
+      }
     },
     changeBoardTitle(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload.id) {
-          return {
-            ...board,
-            title: action.payload.title
-          }
-        }
-        return board;
-      });
+      state.boards[action.payload.id] = {
+        ...state.boards[action.payload.id],
+        title: action.payload.title
+      }
     },
     changeBoardDesc(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload.id) {
-          return {
-            ...board,
-            description: action.payload.description
-          }
-        }
-        return board;
-      });
+      state.boards[action.payload.id] = {
+        ...state.boards[action.payload.id],
+        description: action.payload.description
+      }
     },
     deleteBoard(state, action) {
-      state.boards = state.boards.filter(board => board.id !== action.payload);
+      delete state.boards[action.payload];
     },
     addList(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload.boardID) {
-          return {
-            ...board,
-            lists: [
-              ...board.lists,
-              {
-                id: action.payload.id,
-                title: action.payload.title,
-                cards: []
-              }
-            ]
-          }
-        }
-        return board;
-      });
+      state.boards[action.payload.boardID].lists[action.payload.id] = action.payload
     },
     changeListTitle(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload.boardID) {
-           board.lists = board.lists.map(list => {
-            if(list.id === action.payload.id) {
-              return {
-                ...list,
-                title: action.payload.title
-              }
-            }
-            return list;
-          });
-        }
-        return board
-      });
+      state.boards[action.payload.boardID].lists[action.payload.id].title = action.payload.title;
     },
     deleteList(state, action) {
-      state.boards = state.boards.map(board => {
-        if(board.id === action.payload.boardID) {
-          return {
-            ...board,
-            lists: board.lists.filter(list => list.id !== action.payload.id)
-          }
-        }
-        return board;
-      });
+      delete state.boards[action.payload.boardID].lists[action.payload.id];
     }
   },
-  extraReducers: {
-    [getUserData.fulfilled]: () => console.log("fulfilled"),
-    [getUserData.pending]: () => console.log("pending"),
-    [getUserData.rejected]: () => console.log("rejected")
-  }
 })
 
 export const {

@@ -11,19 +11,18 @@ export default function Home() {
   const dispatch = useDispatch();
   const userID = getStorage();
 
-  useEffect(() => {
-    dispatch(getUserData());
-    console.log(user)
-  }, [user])
-
-
-  console.log(user);
+  // useEffect(() => {
+  //   getUserData(userID)
+  //
+  //
+  // }, [user])
 
 
   return (
     <div className="home_page_wrapper">
       <Navbar/>
       <h1>Home Page</h1>
+      <p>{JSON.stringify(user)}</p>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import setStorage from "../helpers/setStorage";
 
-const initialState = {
+let initialState = {
   email: "",
   password: "",
   userID: null

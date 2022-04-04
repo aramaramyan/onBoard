@@ -79,7 +79,7 @@ export function AddBoardModal({toggleModal}) {
       description: textareaValue,
       bg: bgSwitcher(boardBG),
       isFavorite: false,
-      lists: [],
+      lists: {},
     }
 
     dispatch(addBoard(board));

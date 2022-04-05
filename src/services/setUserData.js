@@ -9,7 +9,7 @@ const setUserData = async (userID, fullName, email) => {
       fullName,
       email,
       userID,
-      boards: [],
+      boards: {},
     })
   } catch (err) {
     alert(err.message);

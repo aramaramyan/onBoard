@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {collection, getDocs, getFirestore, onSnapshot, doc} from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 import {firebaseApp} from "../constants/firebase.config";
-import getStorage from "../helpers/getStorage";
-import {v4} from "uuid";
 
 let initialState = {
   docID: null,
@@ -14,16 +12,16 @@ let initialState = {
 
 const db = getFirestore(firebaseApp);
 
-
 export async function getUserData(userID) {
   const querySnapshot = await getDocs(collection(db, `users`));
+  let user;
   querySnapshot.forEach((doc) => {
     if(doc.data().userID === userID) {
-      console.log(doc.data());
+    user = doc.data();
     }
   });
+  return user;
 }
-
 
 export const userSlice = createSlice({
   name: "userData",
@@ -62,6 +60,7 @@ export const userSlice = createSlice({
         title: action.payload.title,
         cards: {}
       }
+
     },
     changeListTitle(state, action) {
       state.boards[action.payload.boardID].lists[action.payload.id].title = action.payload.title;
@@ -74,7 +73,9 @@ export const userSlice = createSlice({
         id: action.payload.id,
         title: action.payload.title,
         description: "",
-        comments: {}
+        comments: {},
+        priority: "LOW",
+        date: Date.now()
       }
     }
   },

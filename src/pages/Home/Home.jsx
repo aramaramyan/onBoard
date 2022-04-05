@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
-import {getUserData} from "../../features/userSlice";
+import {getUserData, setState} from "../../features/userSlice";
 import getStorage from "../../helpers/getStorage";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,11 +11,14 @@ export default function Home() {
   const dispatch = useDispatch();
   const userID = getStorage();
 
-  // useEffect(() => {
-  //   getUserData(userID)
-  //
-  //
-  // }, [user])
+  useEffect(() => {
+    getUserData(userID).then(res => {
+      console.log("res", res);
+      dispatch(setState(res));
+    });
+  }, [user])
+
+  console.log(user);
 
 
   return (

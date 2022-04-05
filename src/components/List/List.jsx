@@ -1,18 +1,26 @@
 import {changeListTitle, deleteList} from "../../features/userSlice";
 import {useRef, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import trashIcon from "./../../icons/trash.svg";
 import editIcon from "./../../icons/edit.svg";
 import saveIcon from "./../../icons/save.svg";
 import "./List.css";
 import AddCard from "../AddCard/AddCard";
+import Card from "../Card/Card";
 
-export default function List({ boardID, list, isModalOpen }) {
+export default function List({boardID, list, isModalOpen}) {
   const [title, setTitle] = useState(list.title);
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
+  const currentList = useSelector(state => state.user.boards[boardID].lists[list.id]);
+  const cards = [];
   const titleInput = useRef();
   const dispatch = useDispatch()
 
+  console.log("currentList", currentList);
+
+  for (let key in currentList.cards) {
+    cards.push(currentList.cards[key]);
+  }
 
   function handleTitle(val) {
     setTitle(val);
@@ -43,41 +51,45 @@ export default function List({ boardID, list, isModalOpen }) {
 
 
   return (
-    <div className={ isModalOpen? "list_wrapper_shake" : "list_wrapper swing"}>
-      <div className="list_header">
-        <input
-          ref={titleInput}
-          type="text"
-          value={title}
-          readOnly={isTitleReadOnly}
-          onChange={evt => handleTitle(evt.target.value)}
-        />
-        {isTitleReadOnly? (
-          <img
-            src={editIcon}
-            alt="Edit Icon"
-            className="list_header_icon"
-            onClick={titleReadOnlyHandler}
+    <div className="list_column_wrapper">
+      <div className={isModalOpen ? "list_wrapper_shake" : "list_wrapper swing"}>
+        <div className="list_header">
+          <input
+            ref={titleInput}
+            type="text"
+            value={title}
+            readOnly={isTitleReadOnly}
+            onChange={evt => handleTitle(evt.target.value)}
           />
-        ) : (
+          {isTitleReadOnly ? (
+            <img
+              src={editIcon}
+              alt="Edit Icon"
+              className="list_header_icon"
+              onClick={titleReadOnlyHandler}
+            />
+          ) : (
+            <img
+              src={saveIcon}
+              alt="Save Icon"
+              className="list_header_icon"
+              onClick={() => {
+                saveTitle(boardID, list.id)
+              }}
+            />
+          )}
           <img
-            src={saveIcon}
-            alt="Save Icon"
+            src={trashIcon}
+            alt="Trash Icon"
             className="list_header_icon"
-            onClick={() => {saveTitle(boardID, list.id)}}
+            onClick={() => delList(boardID, list.id)}
           />
-        )}
-        <img
-          src={trashIcon}
-          alt="Trash Icon"
-          className="list_header_icon"
-          onClick={() => delList(boardID, list.id)}
-        />
+        </div>
+        <div className="cards_wrapper">
+          {cards.map(card => <Card key={card.id} card={card} listTitle={list.title}/>)}
+        </div>
+        <AddCard boardID={boardID} listID={list.id}/>
       </div>
-      <div className="cards_wrapper">
-        {/*{list.cards.map()}*/}
-      </div>
-      <AddCard boardID={boardID} listID={list.id}/>
     </div>
   );
 }

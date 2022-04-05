@@ -1,0 +1,148 @@
+.singleCard_wrapper {
+    position: absolute;
+    top: calc((100vh - 700px) / 2);
+    left: calc((100% - 800px) / 2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 800px;
+    height: 700px;
+    margin: 0 auto;
+    padding: 15px;
+    background: white;
+    border:2px solid #427ec2;
+    border-radius: 10px;
+    color: #002556;
+}
+
+/* CARD TITLE STYLES */
+
+.singleCard_header img,
+.singleCard_description img,
+.singleCard_comments_title img {
+    width: 24px;
+    height: 24px;
+}
+
+.singleCard_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    cursor: default;
+}
+
+.singleCard_title_wrapper,
+.singleCard_description_wrapper {
+    flex: 1 1 auto;
+    padding-left: 20px;
+}
+
+.delete_singleCard {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.delete_singleCard p {
+    font-size: 12px;
+    font-weight: 700;
+    color: #a31600;
+    margin-right: 10px;
+}
+
+/* DESCRIPTION STYLES */
+
+.singleCard_description {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 30px;
+    cursor: default;
+}
+
+.singleCard_description_wrapper p,
+.singleCard_comments_title p {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.singleCard_description_wrapper textarea,
+.singleCard_comment_textarea_wrapper textarea{
+    flex: 1 1 auto;
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+    resize: none;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: #eaeaea;
+    transition: 0.3s;
+}
+
+.singleCard_description_wrapper textarea:hover,
+.singleCard_comment_textarea_wrapper textarea:hover {
+    background: #d3d3d3;
+}
+
+.singleCard_description_wrapper textarea::placeholder,
+.singleCard_comment_textarea_wrapper textarea::placeholder {
+    color: #002556;
+    padding-left: 5px;
+}
+
+/* COMMENTS STYLES */
+
+.singleCard_comments_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.singleCard_comments_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.singleCard_comments_title p {
+    padding-left: 20px;
+}
+
+.singleCard_user_name_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #008997;
+    border-radius: 50%;
+}
+
+.singleCard_user_name_wrapper p {
+    font-size: 26px;
+    color: #ffffff;
+}
+
+.singleCard_comment_textarea_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    padding-right: 5px;
+}
+
+.singleCard_comment_textarea_wrapper textarea {
+    margin-top: 0;
+    margin-left: 20px;
+}
+

@@ -4,7 +4,7 @@ import "./Card.css";
 import {useState} from "react";
 import SingleCardModal from "../SingleCardModal/SingleCardModal";
 
-export default function Card({listTitle, card}) {
+export default function Card({boardID, listID,listTitle, card}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const date = new Date(card.date);
 
@@ -17,6 +17,8 @@ export default function Card({listTitle, card}) {
       {
         isModalOpen ? (
           <SingleCardModal
+            boardID={boardID}
+            listID={listID}
             listTitle={listTitle}
             card={card}
             toggleModal={toggleModal}

@@ -86,7 +86,13 @@ export default function List({boardID, list, isModalOpen}) {
           />
         </div>
         <div className="cards_wrapper">
-          {cards.map(card => <Card key={card.id} card={card} listTitle={list.title}/>)}
+          {cards.map(card => <Card
+            key={card.id}
+            card={card}
+            listID={list.id}
+            boardID={boardID}
+            listTitle={list.title}
+          />)}
         </div>
         <AddCard boardID={boardID} listID={list.id}/>
       </div>

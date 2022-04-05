@@ -1,18 +1,32 @@
 import {createPortal} from "react-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
+import {deleteCard} from "../../features/userSlice";
 import cardIcon from "./../../icons/card.svg";
 import commentsIcon from "./../../icons/comments.svg";
 import descriptionIcon from "./../../icons/description.svg";
 import trashIcon from "./../../icons/trash.svg"
 import "./SingleCardModal.css";
-import {useState} from "react";
 
-export default function SingleCardModal({ listTitle, card, toggleModal }) {
+export default function SingleCardModal({ boardID, listTitle, listID, card, toggleModal }) {
   const userName = useSelector(state => state.user.fullName);
+  const state = useSelector(state => state.user);
   const [description, setDescription] = useState("");
+  const dispatch = useDispatch();
 
   function toggleDescription(val) {
     setDescription(val);
+  }
+
+  function delCard(boardID, listID, cardID) {
+    const action = {
+      boardID,
+      listID,
+      cardID
+    };
+
+    dispatch(deleteCard(action));
+    toggleModal();
   }
 
   return createPortal(
@@ -25,7 +39,7 @@ export default function SingleCardModal({ listTitle, card, toggleModal }) {
               <h2>{card.title}</h2>
               <p>{`in list "${listTitle}"`}</p>
             </div>
-            <div className="delete_singleCard">
+            <div className="delete_singleCard" onClick={() => delCard(boardID, listID, card.id)}>
               <p>DELETE<br/>CARD</p>
               <img src={trashIcon} alt="Trash Icon"/>
             </div>

@@ -74,9 +74,11 @@ export const userSlice = createSlice({
         title: action.payload.title,
         description: "",
         comments: {},
-        priority: "LOW",
         date: Date.now()
       }
+    },
+    deleteCard(state, action) {
+      delete state.boards[action.payload.boardID].lists[action.payload.listID].cards[action.payload.cardID];
     }
   },
 })
@@ -91,6 +93,7 @@ export const {
   addList,
   changeListTitle,
   deleteList,
-  addCard
+  addCard,
+  deleteCard
 } = userSlice.actions;
 export default userSlice.reducer;

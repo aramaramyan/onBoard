@@ -3,9 +3,8 @@ import { collection, getDocs, getFirestore } from "firebase/firestore";
 import {firebaseApp} from "../constants/firebase.config";
 
 let initialState = {
-  docID: null,
-  fullName: "Aram Aramyan",
-  email: "aram@mail.ru",
+  fullName: "",
+  email: "",
   userID: null,
   boards: {},
 }
@@ -13,11 +12,11 @@ let initialState = {
 const db = getFirestore(firebaseApp);
 
 export async function getUserData(userID) {
-  const querySnapshot = await getDocs(collection(db, `users`));
+  const querySnapshot = await getDocs(collection(db, "users"));
   let user;
   querySnapshot.forEach((doc) => {
     if(doc.data().userID === userID) {
-    user = doc.data();
+    user = {docID: doc.id, ...doc.data()};
     }
   });
   return user;
@@ -28,7 +27,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setState (state, action) {
-      state = action.payload;
+      return {
+        ...action.payload
+      }
     },
     addBoard(state, action) {
       state.boards[action.payload.id] = action.payload;
@@ -79,7 +80,10 @@ export const userSlice = createSlice({
     },
     deleteCard(state, action) {
       delete state.boards[action.payload.boardID].lists[action.payload.listID].cards[action.payload.cardID];
-    }
+    },
+    setCardDescription(state, action) {
+      state.boards[action.payload.boardID].lists[action.payload.listID].cards[action.payload.cardID].description = action.payload.description;
+    },
   },
 })
 
@@ -94,6 +98,7 @@ export const {
   changeListTitle,
   deleteList,
   addCard,
-  deleteCard
+  deleteCard,
+  setCardDescription
 } = userSlice.actions;
 export default userSlice.reducer;

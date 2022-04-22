@@ -25,8 +25,6 @@ export default function Boards() {
     setIsModalOpen(!isModalOpen);
   }
 
-  console.log(boards);
-
   return (
     <>
       <div className="boards_page_wrapper">

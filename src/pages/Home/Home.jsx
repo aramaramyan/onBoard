@@ -4,28 +4,32 @@ import {getUserData, setState} from "../../features/userSlice";
 import getStorage from "../../helpers/getStorage";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-// import {setUserID} from "../../features/signUpSlice";
+import useFirestore from "../../hooks/useFirestore";
 
 export default function Home() {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const userID = getStorage();
+  const {getUserBoards} = useFirestore();
 
   useEffect(() => {
     getUserData(userID).then(res => {
-      console.log("res", res);
       dispatch(setState(res));
     });
-  }, [user])
-
-  console.log(user);
+    getUserBoards();
+  }, [])
 
 
   return (
     <div className="home_page_wrapper">
       <Navbar/>
-      <h1>Home Page</h1>
-      <p>{JSON.stringify(user)}</p>
+      {user.userID? (
+        <>
+          <h1>Home Page</h1>
+          <p>{JSON.stringify(user)}</p>
+        </>
+      ) : <p>Loading...</p>
+      }
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import {createPortal} from "react-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { v4 } from 'uuid';
 import BG_1 from "../../img/boards_BG/mainBG/boardBG_1.jpg";
 import BG_2 from "../../img/boards_BG/mainBG/boardBG_2.jpg";
@@ -14,14 +14,18 @@ import BG_2_demo from "../../img/boards_BG/demoBG/boardBG_2_demo.jpg";
 import BG_3_demo from "../../img/boards_BG/demoBG/boardBG_3_demo.jpg";
 import BG_4_demo from "../../img/boards_BG/demoBG/boardBG_4_demo.jpg";
 import "./AddBoardModal.css";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addBoard} from "../../features/userSlice";
+import useFirestore from "../../hooks/useFirestore";
 
 export function AddBoardModal({toggleModal}) {
+  const user = useSelector(state => state.user);
   const [boardBG, setBoardBG] = useState(BG_1_demo);
   const [inputValue, setInputValue] = useState("");
   const [textareaValue, setTextareaValue] = useState("");
   const dispatch = useDispatch();
+  const {addBoardFirestore} = useFirestore();
+
 
   function handleInput(val) {
     setInputValue(val);
@@ -83,6 +87,7 @@ export function AddBoardModal({toggleModal}) {
     }
 
     dispatch(addBoard(board));
+    addBoardFirestore(board);
     setInputValue("");
     setTextareaValue("");
     setBoardBG(BG_1_demo);
@@ -118,7 +123,7 @@ export function AddBoardModal({toggleModal}) {
           rows="5"
           onChange={evt => handleTextarea(evt.target.value)}
         />
-        <button className="create_board" onClick={addingBoard}>CREATE</button>
+        <button className="create_board" onClick={() => addingBoard(user.docID)}>CREATE</button>
       </div>
     </div>
     , document.body);

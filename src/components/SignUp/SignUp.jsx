@@ -1,22 +1,44 @@
 import signUpEmail from "../../services/signUpEmail";
-import {useSelector, useDispatch} from "react-redux";
-import {setFullName, setEmail, setPassword, setUserID} from "../../features/signUpSlice";
+import {useDispatch} from "react-redux";
 import "./../../pages/Registration/Registration.css";
-import setUserData from "../../services/setUserData";
 import {useNavigate} from "react-router";
 import {setState} from "../../features/userSlice";
+import useFirestore from "../../hooks/useFirestore";
+import {useState} from "react";
+import setStorage from "../../helpers/setStorage";
 
 export default function SignUp() {
-  const {fullName, email, password, userID} = useSelector(state => state.signUp)
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const [userID, serUserID] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {addUserData} = useFirestore();
+
+  function fullNameHandler(value) {
+    setFullName(value);
+  }
+
+  function emailHandler(value) {
+    setEmail(value);
+  }
+
+  function passwordHandler(value) {
+    setPassword(value);
+  }
+
+  function userIDHandler(value) {
+    serUserID(value);
+    setStorage(value);
+  }
 
   function formSubmit(e) {
     e.preventDefault();
 
     signUpEmail(email, password).then(res => {
-      setUserData(res.user.uid, fullName, email).catch(err => alert(err.message));
-      dispatch(setUserID(res.user.uid));
+      addUserData(res.user.uid, fullName, email).catch(err => alert(err.message));
+      userIDHandler(res.user.uid);
       dispatch(setState({userID: userID, fullName: fullName}));
       navigate("/");
     }).catch(err => alert(err.message));
@@ -31,21 +53,21 @@ export default function SignUp() {
           value={fullName}
           placeholder="Full Name"
           className="input"
-          onChange={evt => dispatch(setFullName(evt.target.value))}
+          onChange={evt => fullNameHandler(evt.target.value)}
         />
         <input
           type="email"
           value={email}
           placeholder="Email"
           className="input"
-          onChange={evt => dispatch(setEmail(evt.target.value))}
+          onChange={evt => emailHandler(evt.target.value)}
         />
         <input
           type="password"
           value={password}
           placeholder="Password"
           className="input"
-          onChange={evt => dispatch(setPassword(evt.target.value))}
+          onChange={evt => passwordHandler(evt.target.value)}
         />
         <button className="btn">Sign Up</button>
       </form>

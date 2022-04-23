@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBoard, handleFavorite} from "../../features/userSlice";
@@ -16,26 +16,15 @@ import List from "../../components/List/List";
 
 export default function Board() {
   const {fullName, boards} = useSelector(state => state.user);
-  const boardsArray = [];
-  const listArray = [];
   const [avatarBG, setAvatarBG] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {boardID} = useParams();
-  const board = boards[boardID];
+  const [board] = boards.filter(board => board.id === boardID);
   const dispatch = useDispatch();
-
-  for(let key in boards) {
-    boardsArray.push(boards[key]);
-  }
-
-  boardsArray.forEach(board => {
-    for(let key in board.lists) {
-      listArray.push(board.lists[key]);
-    }
-  });
 
   useEffect(() => {
     setAvatarBG(randomColor());
+
   }, []);
 
   function toggleModal() {
@@ -62,7 +51,7 @@ export default function Board() {
               <img src={boardIcon} alt="Boards Icon" className="user_boards_title_icon"/>
               <h3>Boards:</h3>
             </div>
-            {boardsArray.map(board => {
+            {boards.map(board => {
               return <AsideBoard
                 key={board.id}
                 id={board.id}
@@ -94,7 +83,7 @@ export default function Board() {
             </div>
           </div>
           <div className="lists">
-            {listArray.map(list => <List
+            {board.lists.map(list => <List
               key={list.id}
               list={list}
               boardID={boardID}

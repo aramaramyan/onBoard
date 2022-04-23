@@ -29,9 +29,11 @@ export default function Card({boardID, listID,listTitle, card}) {
             <div className="card_wrapper_footer">
               <div className="card_comment_wrapper">
                 <img src={commentIcon} alt="Comments Icon"/>
-                <div className="card_comment_count">
-                  <p>5</p>
-                </div>
+                {card.comments.length ? (
+                  <div className="card_comment_count">
+                    <p>{card.comments.length}</p>
+                  </div>
+                ) : null}
               </div>
               <div className="card_date_wrapper">
                 <img src={calendarIcon} alt="Calendar Icon"/>

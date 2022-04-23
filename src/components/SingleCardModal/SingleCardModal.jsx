@@ -10,12 +10,13 @@ import "./SingleCardModal.css";
 
 export default function SingleCardModal({ boardID, listTitle, listID, card, toggleModal }) {
   const userName = useSelector(state => state.user.fullName);
-  const currentDesc = useSelector(state => state.user.boards[boardID].lists[listID].cards[card.id].description);
-  const [description, setDescription] = useState(currentDesc)
+  const [description, setDescription] = useState(card.description);
   const [comment, setComment] = useState("")
   const [isSaveDescOpen, setIsSaveDescOpen] = useState(false);
   const [isSaveCommentOpen, setIsSaveCommentOpen] = useState(false);
   const dispatch = useDispatch();
+
+  console.log("<<<Single Crd>>>", card);
 
   function toggleDescription(val) {
     setDescription(val)
@@ -114,7 +115,7 @@ export default function SingleCardModal({ boardID, listTitle, listID, card, togg
               )}
             </div>
             <div className="comments">
-              {/*{cards.map(comment => )}*/}
+              {/*{card.comments.map(comment => )}*/}
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import {createPortal} from "react-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { v4 } from 'uuid';
 import BG_1 from "../../img/boards_BG/mainBG/boardBG_1.jpg";
 import BG_2 from "../../img/boards_BG/mainBG/boardBG_2.jpg";
@@ -83,7 +83,7 @@ export function AddBoardModal({toggleModal}) {
       description: textareaValue,
       bg: bgSwitcher(boardBG),
       isFavorite: false,
-      lists: {},
+      lists: [],
     }
 
     dispatch(addBoard(board));

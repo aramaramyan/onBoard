@@ -1,9 +1,10 @@
-import {collection, getDoc, getFirestore, doc, setDoc, addDoc, updateDoc} from "firebase/firestore";
+import {getDoc, getFirestore, doc, setDoc, collection, getDocs} from "firebase/firestore";
 import {firebaseApp} from "../constants/firebase.config";
 import getStorage from "../helpers/getStorage";
 import {v4} from "uuid";
 
 const db = getFirestore(firebaseApp);
+const docRef = doc(db, "users", getStorage());
 
 
 export default function useFirestore() {
@@ -14,6 +15,7 @@ export default function useFirestore() {
         fullName,
         email,
         userID,
+        boards: []
       })
     } catch (err) {
       alert(err.message);
@@ -21,11 +23,11 @@ export default function useFirestore() {
   };
 
   const getUserBoards = async () => {
-
-    const docRef = doc(db, "users", getStorage());
-    // const docSnap = await getDoc(docRef);
-
-    getDoc(docRef).then(res => console.log(res.data()))
+     let data;
+    await getDoc(docRef).then(res => {
+      data = res.data();
+    })
+    return  data.boards;
   }
 
   const addBoardFirestore = async (data) => {

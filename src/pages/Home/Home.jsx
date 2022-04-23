@@ -4,19 +4,16 @@ import {getUserData, setState} from "../../features/userSlice";
 import getStorage from "../../helpers/getStorage";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import useFirestore from "../../hooks/useFirestore";
 
 export default function Home() {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const userID = getStorage();
-  const {getUserBoards} = useFirestore();
 
   useEffect(() => {
     getUserData(userID).then(res => {
       dispatch(setState(res));
     });
-    getUserBoards();
   }, [])
 
 

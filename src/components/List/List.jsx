@@ -11,16 +11,8 @@ import Card from "../Card/Card";
 export default function List({boardID, list, isModalOpen}) {
   const [title, setTitle] = useState(list.title);
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
-  const currentList = useSelector(state => state.user.boards[boardID].lists[list.id]);
-  const cards = [];
   const titleInput = useRef();
-  const dispatch = useDispatch()
-
-  console.log("currentList", currentList);
-
-  for (let key in currentList.cards) {
-    cards.push(currentList.cards[key]);
-  }
+  const dispatch = useDispatch();
 
   function handleTitle(val) {
     setTitle(val);
@@ -48,7 +40,6 @@ export default function List({boardID, list, isModalOpen}) {
     };
     dispatch(deleteList(action));
   }
-
 
   return (
     <div className="list_column_wrapper">
@@ -86,7 +77,7 @@ export default function List({boardID, list, isModalOpen}) {
           />
         </div>
         <div className="cards_wrapper">
-          {cards.map(card => <Card
+          {list.cards.map(card => <Card
             key={card.id}
             card={card}
             listID={list.id}

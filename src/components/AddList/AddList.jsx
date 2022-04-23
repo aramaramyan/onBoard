@@ -24,7 +24,7 @@ export default function AddList({ boardID }) {
       boardID,
       id: v4().slice(0, 8),
       title,
-      cards: {}
+      cards: []
     };
     dispatch(addList(action));
     setTitle("");

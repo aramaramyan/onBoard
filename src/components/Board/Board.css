@@ -19,8 +19,6 @@ font-family: 'Monda', sans-serif;
     transition: 0.3s;
     font-family: 'Allerta', sans-serif;
     color: #ffffff;
-    -webkit-animation: jello 0.9s both;
-    animation: jello 0.9s both;
 }
 
 .board_wrapper:hover {
@@ -88,65 +86,4 @@ font-family: 'Monda', sans-serif;
 .board_icon {
     width: 18px;
     height: 18px;
-}
-
-@-webkit-keyframes jello {
-    0% {
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
-    30% {
-        -webkit-transform: scale3d(0.75, 1.25, 1);
-        transform: scale3d(0.75, 1.25, 1);
-    }
-    40% {
-        -webkit-transform: scale3d(1.25, 0.75, 1);
-        transform: scale3d(1.25, 0.75, 1);
-    }
-    50% {
-        -webkit-transform: scale3d(0.85, 1.15, 1);
-        transform: scale3d(0.85, 1.15, 1);
-    }
-    65% {
-        -webkit-transform: scale3d(1.05, 0.95, 1);
-        transform: scale3d(1.05, 0.95, 1);
-    }
-    75% {
-        -webkit-transform: scale3d(0.95, 1.05, 1);
-        transform: scale3d(0.95, 1.05, 1);
-    }
-    100% {
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
-}
-@keyframes jello {
-    0% {
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
-    30% {
-        -webkit-transform: scale3d(0.75, 1.25, 1);
-        transform: scale3d(0.75, 1.25, 1);
-    }
-    40% {
-        -webkit-transform: scale3d(1.25, 0.75, 1);
-        transform: scale3d(1.25, 0.75, 1);
-    }
-    50% {
-        -webkit-transform: scale3d(0.85, 1.15, 1);
-        transform: scale3d(0.85, 1.15, 1);
-    }
-    65% {
-        -webkit-transform: scale3d(1.05, 0.95, 1);
-        transform: scale3d(1.05, 0.95, 1);
-    }
-    75% {
-        -webkit-transform: scale3d(0.95, 1.05, 1);
-        transform: scale3d(0.95, 1.05, 1);
-    }
-    100% {
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
 }

@@ -126,6 +126,8 @@ export const userSlice = createSlice({
                 return {
                   ...list,
                   cards: [...list.cards, {
+                    boardID: action.payload.boardID,
+                    listID: action.payload.listID,
                     id: action.payload.id,
                     title: action.payload.title,
                     description: "",
@@ -189,6 +191,98 @@ export const userSlice = createSlice({
         return board;
       });
     },
+
+    addComment(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+          return {
+            ...board,
+            lists: board.lists.map(list => {
+              if(list.id === action.payload.listID) {
+                return  {
+                  ...list,
+                  cards: list.cards.map(card => {
+                    if(card.id === action.payload.cardID) {
+                      return {
+                        ...card,
+                        comments: [...card.comments, action.payload]
+                      }
+                    }
+                    return card;
+                  })
+                }
+              }
+              return list;
+            })
+          }
+        }
+        return board;
+      });
+    },
+
+    changeComment(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+          return {
+            ...board,
+            lists: board.lists.map(list => {
+              if(list.id === action.payload.listID) {
+                return  {
+                  ...list,
+                  cards: list.cards.map(card => {
+                    if(card.id === action.payload.cardID) {
+                      return {
+                        ...card,
+                        comments: card.comments.map(comment => {
+                          if(comment.id === action.payload.commentID) {
+                            return {
+                              ...comment,
+                              text: action.payload.text
+                            };
+                          }
+                          return comment;
+                        })
+                      }
+                    }
+                    return card;
+                  })
+                }
+              }
+              return list;
+            })
+          }
+        }
+        return board;
+      });
+    },
+
+    deleteComment(state, action) {
+      state.boards = state.boards.map(board => {
+        if(board.id === action.payload.boardID) {
+          return {
+            ...board,
+            lists: board.lists.map(list => {
+              if(list.id === action.payload.listID) {
+                return  {
+                  ...list,
+                  cards: list.cards.map(card => {
+                    if(card.id === action.payload.cardID) {
+                      return {
+                        ...card,
+                        comments: card.comments.filter(comment => comment.id !== action.payload.commentID)
+                      }
+                    }
+                    return card;
+                  })
+                }
+              }
+              return list;
+            })
+          }
+        }
+        return board;
+      });
+    }
   },
 })
 
@@ -204,6 +298,9 @@ export const {
   deleteList,
   addCard,
   deleteCard,
-  setCardDescription
+  setCardDescription,
+  addComment,
+  changeComment,
+  deleteComment,
 } = userSlice.actions;
 export default userSlice.reducer;

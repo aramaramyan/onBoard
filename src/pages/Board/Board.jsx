@@ -86,7 +86,6 @@ export default function Board() {
             {board.lists.map(list => <List
               key={list.id}
               list={list}
-              boardID={boardID}
               isModalOpen={isModalOpen}
             />)}
             <AddList boardID={board.id}/>

@@ -1,22 +1,22 @@
 import {createPortal} from "react-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {deleteCard, setCardDescription} from "../../features/userSlice";
+import {addComment, deleteCard, setCardDescription} from "../../features/userSlice";
+import {v4} from "uuid";
 import cardIcon from "./../../icons/card.svg";
 import commentsIcon from "./../../icons/comments.svg";
 import descriptionIcon from "./../../icons/description.svg";
 import trashIcon from "./../../icons/trash.svg"
 import "./SingleCardModal.css";
+import Comment from "../Comment/Comment";
 
-export default function SingleCardModal({ boardID, listTitle, listID, card, toggleModal }) {
+export default function SingleCardModal({listTitle, card, toggleModal}) {
   const userName = useSelector(state => state.user.fullName);
   const [description, setDescription] = useState(card.description);
   const [comment, setComment] = useState("")
   const [isSaveDescOpen, setIsSaveDescOpen] = useState(false);
   const [isSaveCommentOpen, setIsSaveCommentOpen] = useState(false);
   const dispatch = useDispatch();
-
-  console.log("<<<Single Crd>>>", card);
 
   function toggleDescription(val) {
     setDescription(val)
@@ -34,27 +34,42 @@ export default function SingleCardModal({ boardID, listTitle, listID, card, togg
     setIsSaveCommentOpen(!isSaveCommentOpen);
   }
 
-  function delCard(boardID, listID, cardID) {
+  function delCard() {
     const action = {
-      boardID,
-      listID,
-      cardID
+      boardID: card.boardID,
+      listID: card.listID,
+      cardID: card.id
     };
 
     dispatch(deleteCard(action));
     toggleModal();
   }
 
-  function saveDesc(boardID, listID, cardID, description) {
+  function saveDesc() {
     const action = {
-      boardID,
-      listID,
-      cardID,
+      boardID: card.boardID,
+      listID: card.listID,
+      cardID: card.id,
       description
     }
 
     dispatch(setCardDescription(action));
     toggleSaveDescOpen();
+  }
+
+  function add_comment() {
+    const action = {
+      boardID: card.boardID,
+      listID: card.listID,
+      cardID: card.id,
+      id: v4().slice(0, 8),
+      text: comment,
+      date: Date.now(),
+      userName
+    }
+
+    dispatch(addComment(action));
+    setComment("");
   }
 
   return createPortal(
@@ -67,7 +82,7 @@ export default function SingleCardModal({ boardID, listTitle, listID, card, togg
               <h2>{card.title}</h2>
               <p>{`in list "${listTitle}"`}</p>
             </div>
-            <div className="delete_singleCard" onClick={() => delCard(boardID, listID, card.id)}>
+            <div className="delete_singleCard" onClick={delCard}>
               <p>DELETE<br/>CARD</p>
               <img src={trashIcon} alt="Trash Icon"/>
             </div>
@@ -86,7 +101,7 @@ export default function SingleCardModal({ boardID, listTitle, listID, card, togg
               />
               {isSaveDescOpen && (
                 <div className="singleCard_description_save_btn">
-                  <button onClick={() => saveDesc(boardID, listID, card.id, description)}>SAVE</button>
+                  <button onClick={saveDesc}>SAVE</button>
                 </div>
               )}
             </div>
@@ -110,12 +125,17 @@ export default function SingleCardModal({ boardID, listTitle, listID, card, togg
               />
               {isSaveCommentOpen && (
                 <div className="singleCard_comment_save_btn">
-                  <button onClick={toggleSaveCommentOpen}>SAVE</button>
+                  <button onClick={() => {
+                    toggleSaveCommentOpen();
+                    add_comment();
+                  }}>SAVE</button>
                 </div>
               )}
             </div>
             <div className="comments">
-              {/*{card.comments.map(comment => )}*/}
+              {card.comments.map(comment => {
+                return <Comment key={comment.id} comment={comment}/>
+              })}
             </div>
           </div>
         </div>

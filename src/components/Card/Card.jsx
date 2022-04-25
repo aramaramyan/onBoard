@@ -4,9 +4,10 @@ import "./Card.css";
 import {useState} from "react";
 import SingleCardModal from "../SingleCardModal/SingleCardModal";
 
-export default function Card({boardID, listID,listTitle, card}) {
+export default function Card({listTitle, card}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const date = new Date(card.date);
+  const calendar = `${date.toDateString().slice(4, 11)} ${date.toLocaleString().slice(11, 16)}`;
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
@@ -17,8 +18,6 @@ export default function Card({boardID, listID,listTitle, card}) {
       {
         isModalOpen ? (
           <SingleCardModal
-            boardID={boardID}
-            listID={listID}
             listTitle={listTitle}
             card={card}
             toggleModal={toggleModal}
@@ -37,7 +36,7 @@ export default function Card({boardID, listID,listTitle, card}) {
               </div>
               <div className="card_date_wrapper">
                 <img src={calendarIcon} alt="Calendar Icon"/>
-                <p>{date.toDateString()}</p>
+                <p>{calendar}</p>
               </div>
             </div>
           </div>

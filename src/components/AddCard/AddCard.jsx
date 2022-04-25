@@ -6,9 +6,10 @@ import plusIcon from "../../icons/plus.svg";
 import closeIcon from "../../icons/close.svg";
 import "./AddCard.css";
 
-export default function AddCard({boardID, listID}) {
+export default function AddCard({list}) {
   const [isAdding, setIsAdding] = useState(false);
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState("");
+  const [placeholder, setPlaceholder] = useState("Enter Card Title...");
   const textarea = useRef();
   const dispatch = useDispatch();
 
@@ -20,16 +21,21 @@ export default function AddCard({boardID, listID}) {
     setTitle(val);
   }
 
-  function addCardToList(boardID, listID, title) {
-    const action = {
-      boardID,
-      listID,
-      id: v4().slice(0, 8),
-      title,
-    };
-    dispatch(addCard(action));
-    setTitle("");
-    handleIsAdding();
+  function addCardToList() {
+    if(title) {
+      const action = {
+        boardID: list.boardID,
+        listID: list.id,
+        id: v4().slice(0, 8),
+        title,
+      };
+      dispatch(addCard(action));
+      setTitle("");
+      setPlaceholder("Enter Card Title...");
+      handleIsAdding();
+    } else {
+      setPlaceholder("Title Is Required!");
+    }
   }
 
   return isAdding ? (
@@ -39,10 +45,11 @@ export default function AddCard({boardID, listID}) {
             rows="4"
             ref={textarea}
             value={title}
+            placeholder={placeholder}
             onChange={evt => textareaHandler(evt.target.value)}
           />
           <div className="addCard_textarea_wrapper_actions">
-            <button onClick={() => addCardToList(boardID, listID, title)}>Add Card</button>
+            <button onClick={addCardToList}>Add Card</button>
             <img
               src={closeIcon}
               alt="Close Icon"

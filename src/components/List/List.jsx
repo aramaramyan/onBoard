@@ -8,7 +8,7 @@ import "./List.css";
 import AddCard from "../AddCard/AddCard";
 import Card from "../Card/Card";
 
-export default function List({boardID, list, isModalOpen}) {
+export default function List({list, isModalOpen}) {
   const [title, setTitle] = useState(list.title);
   const [isTitleReadOnly, setIsTitleReadOnly] = useState(true);
   const titleInput = useRef();
@@ -23,20 +23,20 @@ export default function List({boardID, list, isModalOpen}) {
     titleInput.current.focus();
   }
 
-  function saveTitle(boardID, id) {
+  function saveTitle() {
     titleReadOnlyHandler();
     const action = {
-      boardID,
-      id,
+      boardID: list.boardID,
+      id: list.id,
       title,
     };
     dispatch(changeListTitle(action));
   }
 
-  function delList(boardID, id) {
+  function delList() {
     const action = {
-      boardID,
-      id,
+      boardID: list.boardID,
+      id: list.id,
     };
     dispatch(deleteList(action));
   }
@@ -64,28 +64,24 @@ export default function List({boardID, list, isModalOpen}) {
               src={saveIcon}
               alt="Save Icon"
               className="list_header_icon"
-              onClick={() => {
-                saveTitle(boardID, list.id)
-              }}
+              onClick={saveTitle}
             />
           )}
           <img
             src={trashIcon}
             alt="Trash Icon"
             className="list_header_icon"
-            onClick={() => delList(boardID, list.id)}
+            onClick={delList}
           />
         </div>
         <div className="cards_wrapper">
           {list.cards.map(card => <Card
             key={card.id}
             card={card}
-            listID={list.id}
-            boardID={boardID}
             listTitle={list.title}
           />)}
         </div>
-        <AddCard boardID={boardID} listID={list.id}/>
+        <AddCard list={list}/>
       </div>
     </div>
   );

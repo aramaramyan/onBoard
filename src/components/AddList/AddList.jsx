@@ -9,6 +9,7 @@ import {v4} from "uuid";
 export default function AddList({ boardID }) {
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState("");
+  const [placeholder, setPlaceholder] = useState("Enter List Title...")
   const dispatch = useDispatch();
 
   function handleIsAdding() {
@@ -19,16 +20,21 @@ export default function AddList({ boardID }) {
     setTitle(val);
   }
 
-  function addListToBoard(boardID, title) {
-    const action = {
-      boardID,
-      id: v4().slice(0, 8),
-      title,
-      cards: []
-    };
-    dispatch(addList(action));
-    setTitle("");
-    handleIsAdding();
+  function addListToBoard() {
+    if(title) {
+      const action = {
+        boardID,
+        id: v4().slice(0, 8),
+        title,
+        cards: []
+      };
+      dispatch(addList(action));
+      setTitle("");
+      setPlaceholder("Enter List Title...");
+      handleIsAdding();
+    } else {
+      setPlaceholder("Title Is Required!");
+    }
   }
 
   return (
@@ -37,11 +43,11 @@ export default function AddList({ boardID }) {
         <input
           type="text"
           value={title}
-          placeholder="Enter List Title..."
+          placeholder={placeholder}
           onChange={(evt) => handleTitle(evt.target.value)}
         />
         <div className="addList_input_wrapper_actions">
-          <button onClick={() => addListToBoard(boardID, title)}>Add List</button>
+          <button onClick={() => addListToBoard()}>Add List</button>
           <img
             src={closeIcon}
             alt="Close Icon"

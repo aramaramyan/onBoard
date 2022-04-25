@@ -2,6 +2,7 @@ import "./Comment.css";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {changeComment, deleteComment} from "../../features/userSlice";
+import dateConverter from "./../../helpers/timeConverter"
 
 
 export default function Comment({comment}) {
@@ -9,7 +10,7 @@ export default function Comment({comment}) {
   const [isReadOnly, setISReadOnly] = useState(true);
   const date = new Date(comment.date);
   const dispatch = useDispatch();
-  const calendar = `${date.toDateString().slice(4, 11)} ${date.toLocaleString().slice(11, 16)}`;
+  const calendar = `${date.toDateString().slice(4, 11)} ${dateConverter(date.toLocaleString())}`;
 
   function toggleText(value) {
     setText(value);
@@ -65,7 +66,7 @@ export default function Comment({comment}) {
           />
         </div>
         <div className="comment_content_footer">
-          {isReadOnly? (
+          {isReadOnly ? (
             <button onClick={toggleReadOnly}>Edit</button>
           ) : (
             <button onClick={() => {

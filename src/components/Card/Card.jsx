@@ -1,13 +1,14 @@
 import calendarIcon from "./../../icons/calendar.svg"
 import commentIcon from "./../../icons/comment.svg";
-import "./Card.css";
 import {useState} from "react";
 import SingleCardModal from "../SingleCardModal/SingleCardModal";
+import timeConverter from "../../helpers/timeConverter";
+import "./Card.css";
 
 export default function Card({listTitle, card}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const date = new Date(card.date);
-  const calendar = `${date.toDateString().slice(4, 11)} ${date.toLocaleString().slice(11, 16)}`;
+  const calendar = `${date.toDateString().slice(4, 11)} ${timeConverter(date.toLocaleString())}`;
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);

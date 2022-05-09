@@ -87,7 +87,7 @@ export function AddBoardModal({toggleModal}) {
     }
 
     dispatch(addBoard(board));
-    addBoardFirestore(board);
+    // addBoardFirestore(board);
     setInputValue("");
     setTextareaValue("");
     setBoardBG(BG_1_demo);

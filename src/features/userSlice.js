@@ -7,6 +7,8 @@ let initialState = {
   email: "",
   userID: null,
   boards: [],
+  currentList: null,
+  currentCard: null,
 }
 
 const db = getFirestore(firebaseApp);
@@ -282,6 +284,35 @@ export const userSlice = createSlice({
         }
         return board;
       });
+    },
+
+    dragStart_Card(state, action) {
+      state.currentList = action.payload.list;
+      state.currentCard = action.payload.card;
+    },
+
+    drop_Card(state, action) {
+      // const currentIndex = state.currentList.cards.indexOf(state.currentCard);
+      // state.currentList.cards = state.currentList.cards.splice(currentIndex, 1);
+      // const dropIndex = action.payload.list.cards.indexOf(action.payload.card);
+      // action.payload.list.cards.splice(dropIndex + 1, 0, state.currentCard);
+      //
+      // state.boards = state.boards.map(board => {
+      //   if(board.id === action.payload.boardID) {
+      //     return {
+      //       ...board,
+      //       lists: board.lists.map(list => {
+      //         if(list.id === action.payload.list.id) {
+      //           return action.payload.list;
+      //         }
+      //         if(list.id === state.currentList.id) {
+      //           return state.currentList;
+      //         }
+      //       })
+      //     }
+      //   }
+      //   return board;
+      // });
     }
   },
 })
@@ -302,5 +333,7 @@ export const {
   addComment,
   changeComment,
   deleteComment,
+  dragStart_Card,
+  drop_Card,
 } = userSlice.actions;
 export default userSlice.reducer;
